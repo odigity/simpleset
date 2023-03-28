@@ -4,6 +4,7 @@ version = "0.0.1"
 description = "Better Than Enums"
 authors = ["Ofer Nave <odigity@gmail.com>"]
 readme = "README.md"
+repository = "https://github.com/odigity/py-objects/"
 packages = [{include = "objects"}]
 
 [tool.poetry.dependencies]

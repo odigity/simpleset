@@ -1,2 +1,2 @@
-from .errorset import ErrorSet
-from .object import Object
+from objects.errorset import ErrorSet
+from objects.object import Object
