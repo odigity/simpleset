@@ -6,7 +6,7 @@ This package is very new and has only be used by me on a handful of projects.
 
 When others start using it in different contexts, providing useful feedback on the quality of the API, and guiding its evolution to a mature 1.0 release, I will then offer API stability guarantees and adhere to SemVer.
 
-In the meantime, I see no harm in using it in production given how simple it is.  However, please make sure to pin your package dependency to an *exact* version so your code doesn't break if and when I decide to change something.
+In the meantime, I see no harm in using it in production given how simple it is.  However, **please make sure to pin your package dependency to an exact version** so your code doesn't break if and when I decide to change something.
 
 ### Synopsis
 
