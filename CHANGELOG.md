@@ -6,11 +6,14 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 
 - added changelog
 - added changelog link to `pyproject.toml` for PyPI
+- added [pytest](https://pypi.org/project/pytest/) to dev dependencies
+- converted `test.py` to a pytest test suite stored under `tests/`
+- rewrote README to act as a preview of the docs
 
 ## [0.0.3] - 2023-10-08
 
-- added `docs/` and config (`mkdocs.yml`) for [MkDocs](https://mkdocs.org/) (intitial version identical to README)
-- added config (`.readthedocs.yaml`) for integration with [Read the Docs](https://readthedocs.org/)
+- added `docs/` and `mkdocs.yml` for [MkDocs](https://mkdocs.org/) (intitial version identical to README)
+- added `.readthedocs.yaml` for integration with [Read the Docs](https://readthedocs.org/)
 - added documentation link to `pyproject.toml` for PyPI
 
 ## [0.0.2] - 2023-03-27
