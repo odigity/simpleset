@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "py-objects"
-version = "0.0.2"
+version = "0.0.3"
 description = "Better Than Enums"
 authors = ["Ofer Nave <odigity@gmail.com>"]
 readme = "README.md"
