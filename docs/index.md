@@ -1,6 +1,6 @@
 # Welcome to py-objects
 
-Testing Read the Docs integration by importing the contents of the README.
+WARNING: Out of date for v0.1.0. Will be updated very soon.
 
 ## What / Why
 

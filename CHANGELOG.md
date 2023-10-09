@@ -2,11 +2,21 @@
 
 The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## To Do
+
+- improve output of `Object.__repr__`
+
 ## [Unreleased]
 
+- ?
+
+## [0.1.0] - 2023-10-09
+
+- complete rewrite to combine Object + ObjectMananger into single class and simplify API
 - added changelog
 - added changelog link to `pyproject.toml` for PyPI
 - added [pytest](https://pypi.org/project/pytest/) to dev dependencies
+- configured pytest in `pyproject.toml` and `tests/conftest.py`
 - converted `test.py` to a pytest test suite stored under `tests/`
 - rewrote README to act as a preview of the docs
 
