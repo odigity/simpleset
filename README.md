@@ -25,7 +25,7 @@ Color = Object.define( "Color", "RED", "GREEN", "BLUE" )
 
 assert Color.RED == "RED"
 Color.RED.canonical_name    # "RED"
-Color.objects.all           # [ Color.RED, Color.GREEN, Color.BLUE ]
+Color.all                   # [ Color.RED, Color.GREEN, Color.BLUE ]
 
 # more complex
 
@@ -36,9 +36,9 @@ Color = Object.define(
     BLUE  = dict( hex="0000ff", like=False ),
 )
 
-assert Color.objects.max_length == 5        # useful for a VARCHAR db column
-assert Color.objects.select( like=True )    # [ Color.RED, Color.GREEN ]
-assert Color.objects.get( like=False )      # Color.BLUE
+assert Color.max_length == 5        # useful for a VARCHAR db column
+assert Color.select( like=True )    # [ Color.RED, Color.GREEN ]
+assert Color.get( like=False )      # Color.BLUE
 ```
 
 [Learn more.](https://py-objects.readthedocs.io/en/latest/)
