@@ -78,54 +78,6 @@ If you pass multiple kwargs, they will be "AND"-ed, meaning only objects that ma
 
 With no kwargs, it behavees identically to `all`.
 
-## Cheatsheet
-
-    # Form 1
-    Color = Object.define( "Color", "RED", "GREEN", "BLUE" )
-
-    # Form 2
-    Color = Object.define( "Color", RED="ff0000", GREEN="00ff00", BLUE="0000ff" )
-
-    # Form 3
-    Color = Object.define(
-        "Color",
-        RED=dict(   hex="ff0000", like=True  ),
-        GREEN=dict( hex="00ff00", like=True  ),
-        BLUE=dict(  hex="0000ff", like=False ),
-    )
-
-    Object
-
-        # Class
-        objects                                 # Object Manager
-        create(     cn,          **kwargs )     # create and register one object
-        createmany(       *args, **kwargs )     # create and register many objects          (three forms)
-        define(     name, *args, **kwargs )     # create a class with objects in one line   (three forms)
-
-        # Instance
-        __eq__                                  # compares canonical names
-        __hash__                                # returns hash of canonical_name
-        __len__                                 # returns length of canonical_name
-        __repr__                                # returns canonical_name
-        __str__                                 # returns canonical_name
-        cn_lower                                # returns lower-cased canonical_name
-        cn_title                                # returns titlized canonical_name  (FOO_BAR  ->  "Foo Bar")
-        ordinal                                 # returns 1-based index representing creation order
-
-    ObjectManager
-
-        __contains__( cn_or_obj )               # returns True | False
-        __getitem__(  cn_or_obj )               # returns obj | None
-        __len__                                 # returns count of registered objects
-        all                                     # returns list
-        filter( func )                          # returns list of 0 or more objects after applying filter function
-        first(  **kwargs )                      # returns obj | None
-        get(    **kwargs )                      # returns obj or raises ValueError
-        last(   **kwargs )                      # returns obj | None
-        max_length                              # returns length of longest canonical_name
-        random()                                # returns randomly-chosen obj
-        select( **kwargs )                      # returns list of 0 or more objects
-
 ## Subclassing
 
 If you want to add your own features to Object, just subclass it:
@@ -253,4 +205,3 @@ Then you can use Objects instead of Enums and still generate Graphene enums from
     class Foo( graphene.ObjectType ):
         color = ColorEnum( required=True )
         ...
-

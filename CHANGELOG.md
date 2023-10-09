@@ -4,11 +4,13 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 
 ## To Do
 
+- rename package to `simpleset`
 - improve output of `Object.__repr__`
+- add custom Django fields
 
 ## [Unreleased]
 
-- ?
+- rewrote docs for v0.1.0 API
 
 ## [0.1.0] - 2023-10-09
 
@@ -31,5 +33,6 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 - first working version
 
 [unreleased]: https://github.com/odigity/py-objects/compare/v0.0.3...HEAD
+[0.1.0]: https://github.com/odigity/py-objects/compare/v0.0.3...v0.1.0
 [0.0.3]: https://github.com/odigity/py-objects/compare/v0.0.2...v0.0.3
 [0.0.2]: https://github.com/odigity/py-objects/releases/tag/v0.0.2
