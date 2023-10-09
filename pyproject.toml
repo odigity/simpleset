@@ -1,18 +1,18 @@
 [ tool.poetry ]
 
-name            = "py-objects"
+name            = "simpleset"
 version         = "0.1.0"
 description     = "Better Than Enums"
 authors         = [ "Ofer Nave <odigity@gmail.com>" ]
 readme          = "README.md"
-repository      = "https://github.com/odigity/py-objects/"
-documentation   = "https://py-objects.readthedocs.io/en/latest/"
+repository      = "https://github.com/odigity/simpleset/"
+documentation   = "https://simpleset.readthedocs.io/en/latest/"
 packages        = [ { include = "objects" } ]
 
 
 [ tool.poetry.urls ]
 
-Changelog       = "https://github.com/odigity/py-objects/blob/master/CHANGELOG.md"
+Changelog       = "https://github.com/odigity/simpleset/blob/master/CHANGELOG.md"
 
 
 [ tool.poetry.dependencies ]

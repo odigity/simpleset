@@ -1,4 +1,4 @@
-# Welcome to py-objects
+# Welcome to simpleset
 
 WARNING: Out of date for v0.1.0. Will be updated very soon.
 

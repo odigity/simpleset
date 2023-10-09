@@ -1,4 +1,4 @@
-\[ [Documentation](https://py-objects.readthedocs.io/en/latest/) | [Changelog](CHANGELOG.md) \]
+\[ [Documentation](https://simpleset.readthedocs.io/en/latest/) | [Changelog](CHANGELOG.md) \]
 
 ### Disclaimer!
 
@@ -41,4 +41,4 @@ assert Color.select( like=True )    # [ Color.RED, Color.GREEN ]
 assert Color.get( like=False )      # Color.BLUE
 ```
 
-[Learn more.](https://py-objects.readthedocs.io/en/latest/)
+[Learn more.](https://simpleset.readthedocs.io/en/latest/)
