@@ -1,4 +1,4 @@
-\[ [Documentation](https://simpleset.readthedocs.io/en/latest/) | [Changelog](CHANGELOG.md) \]
+\[ [Documentation](https://simpleset.readthedocs.io/en/latest/) | [Cheatsheet](https://simpleset.readthedocs.io/en/latest/cheatsheet/) | [Changelog](CHANGELOG.md) \]
 
 ### Disclaimer!
 
@@ -10,35 +10,36 @@ In the meantime, I see no harm in using it in production given how simple it is.
 
 ### Synopsis
 
-I dislike Python enums.  They behave strangely and are difficult to build on top of or extend.  This package provides a Python class named `Object` which facilitates the creation and usage of enumerated values.  This plain old Python class is both simpler to understand and more powerful/flexible then native enums.
+I dislike Python enums.  They behave strangely and are difficult to build on top of or extend.  This package provides a Python class named `Constant` which facilitates the creation and usage of enumerated values.  This plain old Python class is both simpler to understand and more powerful/flexible then native enums.
 
-Even a Python beginner should be able to understand *most* of the source code.  The only notable exception is the `Object.define()` class method which uses `type()` to construct a subclass of itself.
+Even a Python beginner should be able to understand *most* of the source code.  The exceptions are discussed in the [docs](https://simpleset.readthedocs.io/en/latest/implementation/).
 
 ### Preview
 
-```
-from objects import Object
+```python
+from simpleset import Constant
 
 # simplest form
 
-Color = Object.define( "Color", "RED", "GREEN", "BLUE" )
+Color = Constant.define_set( "Color", "RED", "GREEN", "BLUE" )
 
-assert Color.RED == "RED"
-Color.RED.canonical_name    # "RED"
-Color.all                   # [ Color.RED, Color.GREEN, Color.BLUE ]
+Color.RED == "RED"          # -> True  (equality to strings)
+Color.RED.canonical_name    # -> "RED"
+Color.all                   # -> [ Color.RED, Color.GREEN, Color.BLUE ]
+Color.max_length            # -> 5  (useful for a VARCHAR db column)
 
 # more complex
 
-Color = Object.define(
+Color = Constant.define_set(
     "Color",
     RED   = dict( hex="ff0000", like=True  ),
     GREEN = dict( hex="00ff00", like=True  ),
     BLUE  = dict( hex="0000ff", like=False ),
 )
 
-assert Color.max_length == 5        # useful for a VARCHAR db column
-assert Color.select( like=True )    # [ Color.RED, Color.GREEN ]
-assert Color.get( like=False )      # Color.BLUE
+Color.RED.hex               # -> "ff0000"
+Color.select( like=True )   # -> [ Color.RED, Color.GREEN ]
+Color.get( like=False )     # -> Color.BLUE
 ```
 
 [Learn more.](https://simpleset.readthedocs.io/en/latest/)

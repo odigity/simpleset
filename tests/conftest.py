@@ -4,8 +4,8 @@ from pathlib import Path
 import sys
 
 
-PACKAGE_ROOT = Path( __file__ ).resolve().parent    # py-objects/tests/
-REPO_ROOT    = PACKAGE_ROOT.parent                  # py-objects/
+PACKAGE_ROOT = Path( __file__ ).resolve().parent    # <repo>/tests/
+REPO_ROOT    = PACKAGE_ROOT.parent                  # <repo>/
 
 # add REPO_ROOT to path so `objects` package can be imported by tests
 sys.path.insert( 0, str( REPO_ROOT ) )

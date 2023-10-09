@@ -1,21 +1,21 @@
-from objects import Object
+from simpleset import Constant
 
 
-def test__object__define__form1():
-    Color = Object.define( "Color", "RED", "GREEN", "BLUE" )
-    assert issubclass( Color,     Object )
-    assert isinstance( Color.RED, Color  )
+def test__constant__define__form1():
+    Color = Constant.define_set( "Color", "RED", "GREEN", "BLUE" )
+    assert issubclass( Color,     Constant )
+    assert isinstance( Color.RED, Color    )
     assert Color.RED.canonical_name == "RED"
 
 
-def test__object__define__form2():
-    Color = Object.define( "Color", RED="ff0000", GREEN="00ff00", BLUE="0000ff" )
+def test__constant__define__form2():
+    Color = Constant.define_set( "Color", RED="ff0000", GREEN="00ff00", BLUE="0000ff" )
     assert Color.RED.canonical_name == "RED"
     assert Color.RED.label          == "ff0000"
 
 
-def test__object__define__form3():
-    Color = Object.define(
+def test__constant__define__form3():
+    Color = Constant.define_set(
         "Color",
         RED   = dict( foo=42, like=True  ),
         GREEN = dict( foo=43, like=True  ),
@@ -25,8 +25,8 @@ def test__object__define__form3():
     assert Color.RED.foo            == 42
 
 
-def test__object__instance_methods():
-    Color = Object.define( "Color", "RED", "GREEN", "BLUE", "FOO_BAR" )
+def test__constant__instance_methods():
+    Color = Constant.define_set( "Color", "RED", "GREEN", "BLUE", "FOO_BAR" )
 
     ##  Magic Methods
 
@@ -56,8 +56,8 @@ def test__object__instance_methods():
     assert Color.GREEN.ordinal    == 2
 
 
-def test__object__class_methods():
-    Color = Object.define(
+def test__constant__class_methods():
+    Color = Constant.define_set(
         "Color",
         RED   = dict( foo=42, like=True  ),
         GREEN = dict( foo=43, like=True  ),

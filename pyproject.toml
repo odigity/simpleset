@@ -1,13 +1,13 @@
 [ tool.poetry ]
 
 name            = "simpleset"
-version         = "0.1.0"
+version         = "0.2.0"
 description     = "Better Than Enums"
 authors         = [ "Ofer Nave <odigity@gmail.com>" ]
 readme          = "README.md"
 repository      = "https://github.com/odigity/simpleset/"
 documentation   = "https://simpleset.readthedocs.io/en/latest/"
-packages        = [ { include = "objects" } ]
+packages        = [ { include = "simpleset" } ]
 
 
 [ tool.poetry.urls ]

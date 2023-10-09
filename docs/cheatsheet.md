@@ -2,63 +2,65 @@
 
 ### Definition
 
-`Object.define` creates & returns a subclass for your object set.
+`Constant.define_set` creates & returns a subclass for your constant set.
 
 ```python
 # Form 1  (canonical_name only)
-Color = Object.define( "Color", "RED", "GREEN", "BLUE" )
+Color = Constant.define_set( "Color", "RED", "GREEN", "BLUE" )
 
 # Form 2  (canonical_name + label)
-Color = Object.define( "Color", RED="ff0000", GREEN="00ff00", BLUE="0000ff" )
+Color = Constant.define_set( "Color", RED="ff0000", GREEN="00ff00", BLUE="0000ff" )
 
 # Form 3  (canonical_name + arbitrary attributes)
-Color = Object.define(
+Color = Constant.define_set(
     "Color",
-    RED=dict(   hex="ff0000", like=True  ),
-    GREEN=dict( hex="00ff00", like=True  ),
-    BLUE=dict(  hex="0000ff", like=False ),
+    RED   = dict( hex="ff0000", like=True  ),
+    GREEN = dict( hex="00ff00", like=True  ),
+    BLUE  = dict( hex="0000ff", like=False ),
 )
 ```
 
-### Subclass API
+### Set API
 
 ```python
-Color.RED       # objects are attached to subclass as attributes using canonical_name
+Color.RED       # constants are attached to subclass as attributes using canonical_name
 ...
 
-Color.populate( *args, **kwargs )   # create & register multiple objects
-                                    # used by Object.define; supports all three forms
+Color.populate( *args, **kwargs )   # create & register multiple constants
+                                    # used by Constant.define_set; supports all three forms
 
 Color.all                           # -> [ Color.RED, ... ]
 Color.all_cn                        # -> [ "RED", ... ]
 Color.max_length                    # returns length of longest canonical_name
 
-Color.filter(              func )   # returns list of objects for which func returns True
-Color.select(          **kwargs )   # returns list of objects who's attributes match kwargs
-Color.get(             **kwargs )   # returns single object who's attributes match kwargs
-                                    # raises ValueError if kwargs matches 0 or 2+ objects
+Color.filter(              func )   # returns list of constants for which func returns True
+Color.select(          **kwargs )   # returns list of constants who's attributes match kwargs
+Color.get(             **kwargs )   # returns single constant who's attributes match kwargs
+                                    # raises ValueError if kwargs matches 0 or 2+ constants
 
 Color.__contains__( item )          # Color.RED in Color  -or-  "RED" in Color
 Color.__getitem(    item )          # Color[ Color.RED ]  -or-  Color[ "RED" ]
-                                    # returns None if object not found (by canonical_name)
+                                    # returns None if constant not found (by canonical_name)
 Color.__iter__(          )          # for color in Color
-Color.__len__(           )          # len( Color ) -> count of objects
+Color.__len__(           )          # len( Color ) -> count of constants
 ```
 
-### Instance API
+### Constant API
 
 ```python
-obj.cn                  # shortcut for obj.canonical_name
-obj.cn_lower            # lowercased canonical_name
-obj.cn_title            # titlecased canonical_name (also replaces "_" with " ")
-obj.ordinal             # based on definition order (from 1 .. len)
+c = Color.RED
 
-obj.__repr__(     )     # return canonical_name
-obj.__str__(      )     # return canonical_name
-obj.__len__(      )     # length of canonical_name:  len( obj )
+c.cn                    # shortcut for c.canonical_name
+c.cn_lower              # lowercased canonical_name
+c.cn_title              # titlecased canonical_name (also replaces "_" with " ")
+c.ordinal               # based on definition order (from 1 .. len)
 
-obj.__eq__( other )     # compare by canonical_name (also __ne__)
-obj.__lt__( other )     # compare by canonical_name (also __le__, __gt__, __ge__)
+c.__repr__(     )       # return canonical_name
+c.__str__(      )       # return canonical_name
+c.__len__(      )       # length of canonical_name:  len( c )
 
-obj.__hash__(     )     # hash of canonical_name to support use as dict key
+c.__eq__( other )       # compare by canonical_name (also __ne__)
+c.__lt__( other )       # compare by canonical_name (also __le__, __gt__, __ge__)
+
+c.__hash__(     )       # hash of canonical_name to support use as dict key
 ```

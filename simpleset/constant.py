@@ -1,13 +1,13 @@
 from copy import deepcopy
 import functools
 
-from objects.utils import classproperty, immutable
+from simpleset.utils import classproperty, immutable
 
 
-# Metaclass for Object to facilitate class-level magic methods.
-# Part of the Object subclass API.
+# Metaclass for Constant to facilitate class-level magic methods.
+# Part of the Constant subclass API.
 # All methods accept strings (canonical_name) or objects (instances of self).
-class ObjectType( type ):
+class ConstantType( type ):
 
 
     def __contains__( self, item ):
@@ -27,16 +27,16 @@ class ObjectType( type ):
 
 
 @functools.total_ordering
-class Object( metaclass=ObjectType ):
+class Constant( metaclass=ConstantType ):
 
 
     ##
-    ##  Object API
+    ##  Constant API
     ##
 
 
     @classmethod
-    def define( cls, name, *args, **kwargs ):
+    def define_set( cls, name, *args, **kwargs ):
 
         # create subclass
         subcls = type(
@@ -52,7 +52,7 @@ class Object( metaclass=ObjectType ):
 
 
     ##
-    ##  Object subclass API
+    ##  Constant subclass API
     ##
 
 
