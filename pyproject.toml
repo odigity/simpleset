@@ -12,7 +12,7 @@ packages        = [ { include = "objects" } ]
 
 [ tool.poetry.urls ]
 
-changelog       = "https://github.com/odigity/py-objects/blob/master/CHANGELOG.md"
+Changelog       = "https://github.com/odigity/py-objects/blob/master/CHANGELOG.md"
 
 
 [ tool.poetry.dependencies ]
