@@ -1,5 +1,5 @@
 site_name   : simpleset
-site_url    : https://github.com/odigity/simpleset/
+site_url    : https://simpleset.readthedocs.io/en/latest/
 site_author : "Ofer Nave <odigity@gmail.com>"
 theme       : readthedocs
 nav:
