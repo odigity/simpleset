@@ -1,2 +1,14 @@
-site_name: simpleset
-theme: readthedocs
+site_name   : simpleset
+site_url    : https://github.com/odigity/simpleset/
+site_author : "Ofer Nave <odigity@gmail.com>"
+theme       : readthedocs
+nav:
+  - index.md
+  - cheatsheet.md
+  - customizing.md
+  - integrations.md
+  - implementation.md
+  - error.md
+markdown_extensions:
+    - toc:
+        permalink: true

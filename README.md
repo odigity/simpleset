@@ -10,7 +10,7 @@ In the meantime, I see no harm in using it in production given how simple it is.
 
 ### Synopsis
 
-I dislike Python enums.  They behave strangely and are difficult to build on top of or extend.  This package provides a Python class named `Constant` which facilitates the creation and usage of enumerated values.  This plain old Python class is both simpler to understand and more powerful/flexible then native enums.
+I dislike Python [Enums](https://docs.python.org/3/library/enum.html).  They behave strangely and are difficult to build on top of or extend.  This package provides a Python class named `Constant` which facilitates the creation and usage of enumerated values.  This plain old Python class is both simpler to understand and more powerful/flexible then native enums.
 
 Even a Python beginner should be able to understand *most* of the source code.  The exceptions are discussed in the [docs](https://simpleset.readthedocs.io/en/latest/implementation/).
 
@@ -24,7 +24,7 @@ from simpleset import Constant
 Color = Constant.define_set( "Color", "RED", "GREEN", "BLUE" )
 
 Color.RED == "RED"          # -> True  (equality to strings)
-Color.RED.canonical_name    # -> "RED"
+Color.RED.cname             # -> "RED"
 Color.all                   # -> [ Color.RED, Color.GREEN, Color.BLUE ]
 Color.max_length            # -> 5  (useful for a VARCHAR db column)
 
@@ -38,8 +38,12 @@ Color = Constant.define_set(
 )
 
 Color.RED.hex               # -> "ff0000"
-Color.select( like=True )   # -> [ Color.RED, Color.GREEN ]
-Color.get( like=False )     # -> Color.BLUE
+Color.select( like=True  )  # -> [ Color.RED, Color.GREEN ]
+Color.get(    like=False )  # -> Color.BLUE
 ```
 
 [Learn more.](https://simpleset.readthedocs.io/en/latest/)
+
+---
+
+Historical Note:  This package was originally named [py-objects](https://pypi.org/projects/py-objects/).
