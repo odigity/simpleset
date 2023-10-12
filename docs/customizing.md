@@ -1,28 +1,38 @@
 # Customizing
 
-TODO
+`Constant` is just a plain old Python class, so if you want to add anything to it, just subclass it.
 
-# OLD CONTENT
+### Custom Base Class
 
-If you want to add your own features to Object, just subclass it:
+For example, you may want to create a subclass for your whole project that adds general features:
 
-    class MyObject( Object ):
-        def my_new_method( self ):
-            ...
+```python
+class CustomConstant( Constant ):
+    def cname_in_mirror( self ):
+        return self.cname[::-1]     # reverse string
 
-    Color = MyObject.define( "Color", "RED", "GREEN", "BLUE" )
-    Color.RED.my_new_method()
+Color = CustomConstant.define( "Color", "RED", "GREEN", "BLUE" )
+Color.RED.cname_in_mirror()         # -> "DER"
+```
 
-That works well for defining a project-wide base class, but what if you just want a one-off class to add a feature to a specific object type in your collection?  Easy &mdash; just skip past `define`, which is just a helper method around `createmany`, and use `createmany` directly:
+### Custom One-Off Class
 
-    class Planet( MyObject ):
-        @property
-        def circumference( self ):
-            return self.diameter * 3.14
+If you want to create a custom class for only one value set — such as to add convenience properties specific to planets — start by creating a subclass:
 
-    Planet.createmany(
-        EARTH=dict( diameter=12742 ),
-        MARS=dict(  diameter=6794  ),
-    )
+```python
+class Planet( Constant ):
+    @property
+    def circumference( self ):
+        return self.diameter * 3.14
+```
 
-    Planet.EARTH.circumference
+Now, if you call `Planet.define_set`, it will construct and return a subclass of Planet, which is probably not what you want.  If you want to populate the `Planet` class itself with a set of instances, skip `define_set` and instead call `populate` directly — which is the same method that `define_set` uses.
+
+```python
+Planet.populate(
+    Earth=dict( diameter=12742 ),
+    Mars=dict(  diameter=6794  ),
+)
+
+Planet.Earth.circumference      # -> 40009.88
+```

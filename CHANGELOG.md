@@ -4,22 +4,30 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 
 ## To Do
 
-- docs/index
-- docs/customizing
 - docs/implementation
 - Django methods
 - Graphene methods
 - Django fields
 - docs/integrations
-- reorder docs
-- cleanup use of `==` vs `is`
+- improve __repr__
+- add strict version
+    - prevent mixing definition forms
+    - enforce consistent attributes across instances
 
 ## [Unreleased]
 
+- renamed `label` attribute to `value`
+- replaced `canonical_name` attribute and `cn` property with `cname` attribute
+- removed `cn_lower` (adds no value)
+- renamed `cn_title` to `cname_pretty`
+- wrote docs/index
+- wrote docs/customizing
+- defined docs nav order
+- replaced deepcopy strategy (for immutability) with `_attrdir`` dict + custom attribute access methods, which also facilitates attributes overriding existing properties and methods when collisions occur
+- added `as_dict`, `all_dict`, `as_tuple`, and `all_tuple`
 
 ## [0.2.0] - 2023-10-09
 
-- rewrote docs for v0.1.0 API
 - renamed package to `simpleset`
 - renamed `Object` to `Constant`
 - renamed `Object.define` to `Constant.define_set`

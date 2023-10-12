@@ -1,8 +1,10 @@
-\[ [Documentation](https://simpleset.readthedocs.io/en/latest/) | [Cheatsheet](https://simpleset.readthedocs.io/en/latest/cheatsheet/) | [Changelog](CHANGELOG.md) \]
+\[ [Documentation](https://simpleset.readthedocs.io/en/latest/) | [Cheatsheet](https://simpleset.readthedocs.io/en/latest/cheatsheet/) | [Changelog](https://github.com/odigity/simpleset/blob/master/CHANGELOG.md) \]
 
 ### Disclaimer!
 
-This package is very new and has only be used by me on a handful of projects.
+tl;dr — Expect breaking changes in the future, and pin the version you use to protect yourself.
+
+This package is very new and has only been used by me as far as I know.
 
 When others start using it in different contexts, providing useful feedback on the quality of the API, and guiding its evolution to a mature 1.0 release, I will then offer API stability guarantees and adhere to SemVer.
 
