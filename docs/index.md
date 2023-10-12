@@ -102,7 +102,7 @@ mydict[ Color.RED ] = "my favorite"
 
 The `Constant` class also provides a number of properties and methods for working with the entire set of instances.
 
-##### All
+##### All Instances
 
 The `all` and `all_cname` properties will return a list of instances or cnames, respectively.
 
@@ -130,7 +130,7 @@ Or get the length of the longest cname, which is useful for setting the size of 
 Color.max_length    # -> 5  (because of GREEN)
 ```
 
-##### Some
+##### A Subset of Instances
 
 To get a subset of instances, you can use the `select` method to specify attribute names and values to match against each instance (simple equality only), or the `filter` method to provide a function that will receive each instance and must return True or False to indicate matching.
 
@@ -142,7 +142,7 @@ Char.filter( lambda i: i.ascii < 67 )   # -> [ Char.A, Char.B ]
 
 Note: If you pass multiple kwargs to `select`, they will be "AND"-ed, meaning only objects that match all kwargs will be returned.
 
-##### One
+##### A Single Instance
 
 The `get` method takes kwargs like the `select` method, but returns a single object instead of a list.  Note: If your specified kwargs produces zero results or more than one result, `ValueError` is raised.
 

@@ -16,6 +16,9 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 
 ## [Unreleased]
 
+
+## [0.3.0] - 2023-10-12
+
 - renamed `label` attribute to `value`
 - replaced `canonical_name` attribute and `cn` property with `cname` attribute
 - removed `cn_lower` (adds no value)
@@ -56,7 +59,8 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 
 - first working version
 
-[unreleased]: https://github.com/odigity/simpleset/compare/v0.2.0...HEAD
+[unreleased]: https://github.com/odigity/simpleset/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/odigity/simpleset/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/odigity/simpleset/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/odigity/simpleset/compare/v0.0.3...v0.1.0
 [0.0.3]: https://github.com/odigity/simpleset/compare/v0.0.2...v0.0.3
