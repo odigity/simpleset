@@ -2,7 +2,7 @@
 
 ### Disclaimer!
 
-tl;dr — Expect breaking changes in the future, and pin the version you use to protect yourself.
+tl;dr — Expect breaking changes in the future, and pin the version to protect yourself.
 
 This package is very new and has only been used by me as far as I know.
 
@@ -12,7 +12,7 @@ In the meantime, I see no harm in using it in production given how simple it is.
 
 ### Synopsis
 
-I dislike Python [Enums](https://docs.python.org/3/library/enum.html).  They behave strangely and are difficult to build on top of or extend.  This package provides a Python class named `Constant` which facilitates the creation and usage of enumerated values.  This plain old Python class is both simpler to understand and more powerful/flexible then native enums.
+I dislike Python [Enums](https://docs.python.org/3/library/enum.html).  They behave strangely and are difficult to build on top of or extend.  This package provides a Python class named `Constant` which facilitates the creation and usage of immutable enumerated value sets.  This plain old Python class is both simpler to understand and more powerful/flexible then native enums.
 
 Even a Python beginner should be able to understand *most* of the source code.  The exceptions are discussed in the [docs](https://simpleset.readthedocs.io/en/latest/internals/).
 

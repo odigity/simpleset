@@ -46,7 +46,7 @@ _Notice the difference &mdash; Constants are classes with instances attached, wh
 
 ### Extending the Family
 
-I assume `define_family` is enough for the vast majority of cases, but if for some reason you want to create a custom family tree of errors with three or more levels, you can call `define_children` on any class to create another level child error classes.
+I assume `define_family` is enough for the vast majority of cases, but if for some reason you want to create a custom family tree with three or more levels, you can call `define_children` on any class to create another level of child error classes.
 
 ```python
 APIError.VersionError.define_children( "VersionOmittedError", "VersionUnspportedError" )

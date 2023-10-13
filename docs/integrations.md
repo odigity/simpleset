@@ -19,11 +19,11 @@ If you prefer a different pair of values to populate the `choices` attribute, us
 
 ## Graphene
 
-Unfortunately, working with [Graphene](https://pypi.org/projects/graphene/) is much more complicated due to its horrificly awful design and implementation.  Fortunately, I've already lived through that pain, and can provide a solution.
+Working with [Graphene](https://pypi.org/projects/graphene/) is far more complicated due to its horrifically awful design and implementation.  Fortunately, I've already lived through that pain, and can provide a solution.
 
 **Import Warning**
 
-You will need to import one of the two classes in `simpleset.graphene`.  That module will need to import the `graphene` package — which is not a dependency of this package! — so make sure it's already installed before you do this.  (In practice, this shouldn't be a problem, as anyone who needs to generate Graphene enums surely has `graphene` listed in their project dependencies.)
+You will need to import one of the two classes in `simpleset.graphene`.  That module imports the `graphene` module — which is not listed as a dependency! — so make sure it's already installed before you do this.  (In practice, this shouldn't be a problem, as anyone who needs to generate Graphene enums surely has `graphene` listed in their project dependencies.)
 
 ##### Classes
 
@@ -32,6 +32,7 @@ You can either import `GrapheneMixin` and use it to generate your own base class
 ```python
 from simpleset import Constant
 from simpleset.graphene import GrapheneMixin
+
 class MyConstant( GrapheneMixin, Constant ):
     ...
 ```
@@ -90,7 +91,7 @@ To filter out some of the instances, pass a `filter` param:
 ColorEnum = Color.graphene( filter=lambda o: o != "BLUE" )
 ```
 
-To use attributes other than `cname` and `cname_pretty`, call `graphene_config` on the class before calling `graphene`:
+To use attributes other than `cname` and `cname_pretty`, call `graphene_config()` on the class before calling `graphene()`:
 
 ```python
 Color.graphene_config( name="attr1", value="attr2", desc="attr3" )

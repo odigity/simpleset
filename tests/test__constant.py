@@ -47,6 +47,10 @@ def test__instance_methods():
     # __str__
     assert str( Color.RED ) == "RED"
 
+    # __hash__
+    d = { Color.RED: "foo" }
+    assert d[ Color.RED ] == "foo"
+
     ##  Normal Methods
 
     assert Color.RED.cname            == "RED"

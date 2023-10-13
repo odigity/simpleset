@@ -5,15 +5,15 @@
 This package contains the following:
 
 - `simpleset.Constant` — An alternative to Python's [Enum](https://docs.python.org/3/library/enum.html) for defining immutable data sets in code.  Supports a range of use cases, from simple list-of-strings to immutable named objects of arbitrary complexity.
-- `simpleset.Error` — A subclass of `Exception` that provides a pair of utility functions for defining sets or entire families of exception classes in a single line.  (A variation on the enum theme.)  See the [Error](error) page for the details.
 - `simpleset.strict` — Contains a class mixin (`StrictMixin`) which adds strictness to set definitions, preventing the mixing of forms or inconsistent attribute sets, and an alternate `Constant` class which includes the mixin.  See the [Customizing](customizing) page for the details.
 - `simpleset.graphene` — Contains a class mixin (`GrapheneMixin`) which adds helper methods for generating Graphene enums, and an alternate `Constant` class which includes the mixin.  See the [Integrations](integrations) page for the details.
+- `simpleset.Error` — A subclass of `Exception` that provides a pair of utility functions for defining sets or entire families of exception classes in a single line.  (A variation on the enum theme.)  See the [Error](error) page for the details.
 
 ## Constant
 
 ### Definition
 
-To define a set of immutable named objects of arbitrary complexity, use `Constant.define_set()`` to specify the set name + object names:
+Use `Constant.define_set()` to specify the set name and instance names:
 
 ```python
 Color = Constant.define_set( "Color", "RED", "GREEN", "BLUE" )
@@ -108,11 +108,11 @@ The `Constant` class also provides a number of properties and methods for workin
 
 ##### All Instances
 
-The `all` and `all_cname` properties will return a list of instances or cnames, respectively.
+The `all` property and `as_cnames()` method will return a list of instances or cnames, respectively.
 
 ```python
 Color.all           # -> [ Color.RED, Color.GREEN, Color.BLUE ]
-Color.all_cname     # -> [ "RED", "GREEN", "BLUE" ]
+Color.as_cnames()   # -> [ "RED", "GREEN", "BLUE" ]
 ```
 
 You can also iterate the class:
@@ -139,16 +139,21 @@ Color.max_length    # -> 5  (because of GREEN)
 To get a subset of instances, you can use the `select` method to specify attribute names and values to match against each instance (simple equality only), or the `filter` method to provide a function that will receive each instance and must return True or False to indicate matching.
 
 ```python
-Char.define_set( A=dict( ascii=65 ), B=dict( ascii=66 ), C=dict( ascii=67 ) )
+Char = Constant.define_set(
+    "Char",
+    A = dict( ascii=65 ),
+    B = dict( ascii=66 ),
+    C = dict( ascii=67 ),
+)
 Char.select( ascii=66 )                 # -> [ Char.B ]
-Char.filter( lambda i: i.ascii < 67 )   # -> [ Char.A, Char.B ]
+Char.filter( lambda o: o.ascii < 67 )   # -> [ Char.A, Char.B ]
 ```
 
-Note: If you pass multiple kwargs to `select`, they will be "AND"-ed, meaning only objects that match all kwargs will be returned.
+Note: If you pass multiple kwargs to `select`, they will be "AND"-ed, meaning only instances that match all kwargs will be returned.
 
 ##### A Single Instance
 
-The `get` method takes kwargs like the `select` method, but returns a single object instead of a list.  Note: If your specified kwargs produces zero results or more than one result, `ValueError` is raised.
+The `get` method takes kwargs like the `select` method, but returns a single instance instead of a list.  Note: If your kwargs produce zero results or more than one result, `ValueError` is raised.
 
 ```python
 Char.get( ascii=66 )    # -> Char.B
