@@ -6,7 +6,7 @@ class Error( Exception ):
 
     @classmethod
     def define_children( cls, *child_names ):
-        cls.children = []
+        children = []
 
         # create class for each child error
         for child_name in child_names:
@@ -20,10 +20,9 @@ class Error( Exception ):
             # add to parent class as attribute
             setattr( cls, child_name, child_class )
 
-            # add to index for lookup & iteration
-            cls.children.append( child_class )
+            children.append( child_class )
 
-        return cls.children
+        return children
 
 
     @classmethod

@@ -12,12 +12,10 @@ def test__error__family():
     assert issubclass( PError, Error )
     assert PError.name == "PError"
     assert PError.parent is Error
-    assert PError in Error.children
 
     assert issubclass( CError1, PError )
     assert CError1.name == "CError1"
     assert CError1.parent is PError
-    assert CError1 in PError.children
 
     # test catching error
     try:
@@ -42,4 +40,3 @@ def test__error__grandchildren():
     assert issubclass( GError1, CError1 )
     assert GError1.name == "GError1"
     assert GError1.parent is CError1
-    assert GError1 in CError1.children

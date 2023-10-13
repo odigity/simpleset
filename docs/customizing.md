@@ -36,3 +36,38 @@ Planet.populate(
 
 Planet.Earth.circumference      # -> 40009.88
 ```
+
+### Example: Strict
+
+This package includes a class which subclasses `simpleset.Constant` and overrides the `populate` method in order to enforce strictness when defining sets.
+
+```python
+from simpleset.strict import Constant, StrictnessError
+```
+
+It will raise an exception if you mix forms:
+
+```python
+try:
+    Color = Constant.define_set( "Color", "RED", "GREEN", BLUE="0000ff" )
+except StrictnessError:
+    ...
+```
+
+Or if you don't specify the same set of attributes for all instances:
+
+```python
+try:
+    Foo = Constant.define_set( "Foo", A=dict( x=1 ), B=dict( y=2 ) )
+except StrictnessError:
+    ...
+```
+
+If you want to combine this feature with other mixins, import and use the mixin instead:
+
+```python
+from simpleset import Constant
+from simpleset.strict import StrictMixin
+class MyConstant( StrictMixin, Constant ):
+    pass
+```

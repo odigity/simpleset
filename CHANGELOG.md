@@ -4,18 +4,32 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 
 ## To Do
 
-- docs/implementation
-- Django methods
-- Graphene methods
 - Django fields
-- docs/integrations
+- docs/integrations: django fields
+- docs/internals
 - improve __repr__
-- add strict version
-    - prevent mixing definition forms
-    - enforce consistent attributes across instances
+- logging
+- CI & version compatibility badges
 
 ## [Unreleased]
 
+
+## [0.4.0] - 2023-10-13
+
+- changed `all_cname` from classproperty to classmethod and add `filter`` keyword
+- added `filter` keyword to `all_dict` and `all_tuple`
+- renamed `all_cname` to `as_cnames`, `all_dict` to `as_dicts`, and `all_tuple` to `as_tuples`
+- added `pick` and `choices` class methods
+- added `getattr_inclusive` instance method (supports "cname_pretty" and "ordinal" as if they were attributes)
+- use `getattr_inclusive` in all methods that accept `name`/`names` params
+- added __index__ instance method
+- added Graphene integration
+- wrote Django and Graphene sections for docs/integration
+- removed `children` class attribute in Error classes (unnecessary and would require metaclasses to handle properly)
+- added strict version:
+    - prevents mixing definition forms
+    - enforces consistent attributes across instances
+- wrote Strict section for docs/customizing
 
 ## [0.3.0] - 2023-10-12
 
@@ -59,7 +73,8 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 
 - first working version
 
-[unreleased]: https://github.com/odigity/simpleset/compare/v0.3.0...HEAD
+[unreleased]: https://github.com/odigity/simpleset/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/odigity/simpleset/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/odigity/simpleset/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/odigity/simpleset/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/odigity/simpleset/compare/v0.0.3...v0.1.0

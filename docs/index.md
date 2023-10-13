@@ -1,9 +1,13 @@
 # Welcome to simpleset
 
+## Manifest
+
 This package contains the following:
 
-- `simpleset.Constant` class — An alternative to Python's [Enum](https://docs.python.org/3/library/enum.html) for defining immutable data sets in code.  Supports a range of use cases, from simple list-of-strings to immutable named objects of arbitrary complexity.
-- `simpleset.Error` class — A subclass of `Exception` that provides a pair of utility functions for defining sets or entire families of exception classes in a single line.  (A variation on the enum theme.)  See the [Error](error.md) page for the details.
+- `simpleset.Constant` — An alternative to Python's [Enum](https://docs.python.org/3/library/enum.html) for defining immutable data sets in code.  Supports a range of use cases, from simple list-of-strings to immutable named objects of arbitrary complexity.
+- `simpleset.Error` — A subclass of `Exception` that provides a pair of utility functions for defining sets or entire families of exception classes in a single line.  (A variation on the enum theme.)  See the [Error](error) page for the details.
+- `simpleset.strict` — Contains a class mixin (`StrictMixin`) which adds strictness to set definitions, preventing the mixing of forms or inconsistent attribute sets, and an alternate `Constant` class which includes the mixin.  See the [Customizing](customizing) page for the details.
+- `simpleset.graphene` — Contains a class mixin (`GrapheneMixin`) which adds helper methods for generating Graphene enums, and an alternate `Constant` class which includes the mixin.  See the [Integrations](integrations) page for the details.
 
 ## Constant
 

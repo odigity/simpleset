@@ -7,8 +7,8 @@ nav:
   - cheatsheet.md
   - customizing.md
   - integrations.md
-  - implementation.md
   - error.md
+  - internals.md
 markdown_extensions:
     - toc:
         permalink: true

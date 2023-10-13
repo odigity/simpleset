@@ -14,7 +14,7 @@ In the meantime, I see no harm in using it in production given how simple it is.
 
 I dislike Python [Enums](https://docs.python.org/3/library/enum.html).  They behave strangely and are difficult to build on top of or extend.  This package provides a Python class named `Constant` which facilitates the creation and usage of enumerated values.  This plain old Python class is both simpler to understand and more powerful/flexible then native enums.
 
-Even a Python beginner should be able to understand *most* of the source code.  The exceptions are discussed in the [docs](https://simpleset.readthedocs.io/en/latest/implementation/).
+Even a Python beginner should be able to understand *most* of the source code.  The exceptions are discussed in the [docs](https://simpleset.readthedocs.io/en/latest/internals/).
 
 ### Preview
 

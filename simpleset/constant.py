@@ -1,6 +1,6 @@
 from collections.abc import Mapping
-from copy import deepcopy
-import functools
+from copy            import deepcopy
+from functools       import total_ordering
 
 from simpleset.utils import classproperty
 
@@ -42,12 +42,12 @@ class ConstantType( type ):
         return super().__setattr__( name, value )
 
 
-@functools.total_ordering
+@total_ordering
 class Constant( metaclass=ConstantType ):
 
 
     ##
-    ##  Constant API
+    ##  Definition API
     ##
 
 
@@ -68,7 +68,7 @@ class Constant( metaclass=ConstantType ):
 
 
     ##
-    ##  Subclass API
+    ##  Class API
     ##
 
 
@@ -77,23 +77,32 @@ class Constant( metaclass=ConstantType ):
         return cls._objects
 
 
-    @classproperty
-    def all_cname( cls ):
-        return list( cls._objdir.keys() )
-
-
-    def all_dict( cls, *names ):
-        return [ obj.as_dict( *names ) for obj in cls._objects ]
-
-
-    def all_tuple( cls, *names ):
-        return [ obj.as_tuple( *names ) for obj in cls._objects ]
+    @classmethod
+    def as_cnames( cls, filter=None ):
+        return cls.pick( "cname", filter=filter )
 
 
     @classmethod
-    def filter( cls, func ):
-        assert callable( func )
-        return [ obj for obj in cls._objects if func( obj ) ]
+    def as_dicts( cls, *names, filter=None  ):
+        return [ obj.as_dict( *names ) for obj in cls.filter( filter ) ]
+
+
+    @classmethod
+    def as_tuples( cls, *names, filter=None  ):
+        return [ obj.as_tuple( *names ) for obj in cls.filter( filter ) ]
+
+
+    @classmethod
+    def choices( cls, filter=None ):
+        return cls.as_tuples( "cname", "cname_pretty", filter=filter )
+
+
+    @classmethod
+    def filter( cls, filter=None ):
+        if filter:
+            assert callable( filter )
+            return [ obj for obj in cls.all if filter( obj ) ]
+        return cls.all
 
 
     @classmethod
@@ -106,27 +115,31 @@ class Constant( metaclass=ConstantType ):
 
     @classproperty
     def max_length( cls ):
-        if cls._objects:
-            return max( len( obj ) for obj in cls._objects )
+        if cls.all:
+            return max( len( obj ) for obj in cls.all )
         return 0
+
+
+    @classmethod
+    def pick( cls, name, filter=None ):
+        return [ obj.getattr_inclusive( name ) for obj in cls.filter( filter ) ]
 
 
     # Form 1:  populate( "cname1", ... )
     # Form 2:  populate( cname1=value1, ... )
     # Form 3:  populate( cname1=dict( attr1=val1, ... ), ... )
     #
-    # Note:  This method doesn't currently prevent you from mixing multiple forms in a single call,
-    #        but that may change in the future.
+    # Warning:  Doesn't prevent you from mixing multiple forms in a single call.
     @classmethod
     def populate( cls, *args, **kwargs ):
 
         # Form 1
         for cname in args:
-            cls._create( str( cname ) )
+            cname = str( cname )
+            assert cname.isidentifier()
+            cls._create( cname )
 
         for cname, payload in kwargs.items():
-            cname = str( cname )
-
             # Form 3
             if isinstance( payload, Mapping ):
                 cls._create( cname, **payload )
@@ -175,6 +188,10 @@ class Constant( metaclass=ConstantType ):
         return hash( self.cname )
 
 
+    def __index__( self ):
+        return self.ordinal 
+
+
     def __len__( self ):
         return len( self.cname )
 
@@ -198,24 +215,20 @@ class Constant( metaclass=ConstantType ):
 
 
     def as_dict( self, *names ):
-        for name in names:
-            assert name in self._attrdir
-
         if names:
-            return { name : deepcopy( self._attrdir[ name ] ) for name in names }
+            return { name:self.getattr_inclusive( name ) for name in names }
 
         return deepcopy( self._attrdir )
 
 
     def as_tuple( self, *names ):
-        if len( self._attrdir ) == 1:
+        if names:
+            return tuple( [ self.getattr_inclusive( name ) for name in names ] )
+
+        if len( self._attrdir ) == 1:   # Form 1
             return ( self.cname, self.ordinal )
 
-        if not names:
-            other = [ k for k in self._attrdir if k != "cname" ]
-            names = [ "cname", *other ]
-
-        return tuple( [ self._attrdir[ name ] for name in names ] )
+        return deepcopy( tuple( self._attrdir.values() ) )
 
 
     @property
@@ -223,9 +236,22 @@ class Constant( metaclass=ConstantType ):
         return self.cname.replace( "_", " " ).title()
 
 
+    def getattr_inclusive( self, name ):
+        if name == "cname_pretty":
+            return self.cname_pretty
+
+        if name == "ordinal":
+            return self.ordinal
+
+        if name in self._attrdir:
+            return deepcopy( self._attrdir[ name ] )
+
+        raise AttributeError( f"attribute { name } not found in instance { self.cname }" )
+
+
     @property
     def ordinal( self ):
-        return self._objects.index( self ) + 1
+        return self.all.index( self ) + 1
 
 
     ##

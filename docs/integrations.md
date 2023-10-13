@@ -1,81 +1,111 @@
 # Integrations
 
-TODO
+## Django
 
-# OLD CONTENT
+One example of how to use Constants with [Django](https://pypi.org/projects/Django/):
 
-## Bonus: Help for Django Users
+```python
+Color = Constant.define_set( "Color", "RED", "GREEN", "BLUE" )
 
-Stop using Django.
+# declare an enumerated DB field in a model class
+color = models.CharField(
+    choices    = Color.choices(),
+    max_length = Color.max_length,
+    default    = Color.RED,
+)
+```
 
-.
+If you prefer a different pair of values to populate the `choices` attribute, use `as_tuple`.
 
-If you must use Django, I suggest adding the following to your personal Object base class:
+## Graphene
 
-    def django_pair( self ):
-        django_value = self.canonical_name
-        django_label = self.label if hasattr( self, "label" ) else self.canonical_name
-        return ( django_value, django_label )
+Unfortunately, working with [Graphene](https://pypi.org/projects/graphene/) is much more complicated due to its horrificly awful design and implementation.  Fortunately, I've already lived through that pain, and can provide a solution.
 
-    @classmethod
-    def choices( cls, filter=None ):
-        objects = cls.objects.filter( filter ) if filter else cls.objects.all
-        return [ obj.django_pair() for obj in objects ]
+**Import Warning**
 
-Then you can use Objects instead of Enums in model fields:
+You will need to import one of the two classes in `simpleset.graphene`.  That module will need to import the `graphene` package — which is not a dependency of this package! — so make sure it's already installed before you do this.  (In practice, this shouldn't be a problem, as anyone who needs to generate Graphene enums surely has `graphene` listed in their project dependencies.)
 
-    color = models.CharField(
-        choices    = Color.choices(),                                   # use all values
-            -or-
-        choices    = Color.choices( filter=lambda o: o != "BLUE" ),     # filter out some
-        max_length = Color.objects.max_length,
-        default    = Color.RED,
-    )
+##### Classes
 
-## Bonus: Help for Graphene Users
+You can either import `GrapheneMixin` and use it to generate your own base class:
 
-Stop using Graphene.
+```python
+from simpleset import Constant
+from simpleset.graphene import GrapheneMixin
+class MyConstant( GrapheneMixin, Constant ):
+    ...
+```
 
-.
+Or you can import `simpleset.graphene.Constant`, which has already combined `simpleset.Constant` and `GrapheneMixin` for you:
 
-Seriously, it's really really bad.
+```python
+from simpleset.graphene import Constant
+```
 
-.
+##### Usage
 
-If you must use Graphene, I suggest adding the following to you personal Object base class:
+The simplest case:
 
-    from functools import cache
-    from graphene import Enum
+```python
+Color = Constant.define_set( "Color", "RED", "GREEN", "BLUE" )
+ColorEnum = Color.graphene()
+```
 
-    def graphene_pair( self ):
-        graphene_name  = self.canonical_name
-        graphene_value = self.canonical_name
-        return ( graphene_name, graphene_value )
+The `graphene` class method will construct and return a `graphene.Enum` class populated with the data from your class.  Specifically, the enum class name will be the same as your class name, the item names and values will both be set to `cname` (configurable), the item descriptions will be set to `cname_pretty` (configurable), and the class description will be based on your class docstring — if it exists.
 
-    def graphene_description( self ):
-        if hasattr( self, "description" ):
-            return self.description
-        if hasattr( self, "label" ):
-            return self.label
-        return None
+*Note: The `graphene` method caches results for each combination of inputs, so if you call it twice with the same inputs, you will only generate one Graphene Enum.  Without this, Graphene would end up raising an exception when generating the schema.*
 
-    @classmethod
-    @cache
-    def graphene( cls, name=None, filter=None ):
-        name         = name or cls.__name__
-        objects      = cls.objects.filter( filter ) if filter else cls.objects.all
-        enum_items   = [ obj.graphene_pair() for obj in objects ]
-        descriptions = { obj.graphene_pair()[ 0 ]: obj.graphene_description() for obj in objects }
+The above example is the equivalent of doing this:
 
-        def description( enum_obj ):
-            return descriptions[ enum_obj.name ] if enum_obj else cls.__doc__
+```python
+from graphene import Enum
 
-        return graphene.Enum( name, enum_items, description=description )
+class Color( Enum ):
+    RED   = "RED"
+    GREEN = "GREEN"
+    BLUE  = "BLUE"
 
-Then you can use Objects instead of Enums and still generate Graphene enums from them:
+    @property
+    def description( self ):
+        match self:
+            case Color.RED:
+                return "Red"
+            case Color.GREEN:
+                return "Green"
+            case Color.BLUE:
+                return "Blue"
+            case _:
+                return Color.__doc__
+```
 
-    ColorEnum = Color.graphene()
+To set the class name to something else, pass a `name` param:
 
-    class Foo( graphene.ObjectType ):
-        color = ColorEnum( required=True )
-        ...
+```python
+ColorEnum = Color.graphene( name="ColorEnum" )
+```
+
+To filter out some of the instances, pass a `filter` param:
+
+```python
+ColorEnum = Color.graphene( filter=lambda o: o != "BLUE" )
+```
+
+To use attributes other than `cname` and `cname_pretty`, call `graphene_config` on the class before calling `graphene`:
+
+```python
+Color.graphene_config( name="attr1", value="attr2", desc="attr3" )
+ColorEnum = Color.graphene()
+```
+
+All kwargs are optional, so you only need to include the ones you want to override.  It will also return itself in case you want to use chaining:
+
+```python
+Color = Constant.define_set(
+    "Color",
+    RED   = dict( hex="ff0000", description="a lovely shade of red"   ),
+    GREEN = dict( hex="00ff00", description="a lovely shade of green" ),
+    BLUE  = dict( hex="0000ff", description="a lovely shade of blue"  ),
+).graphene_config( desc="description" )
+
+ColorEnum = Color.graphene()
+```

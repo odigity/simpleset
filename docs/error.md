@@ -2,7 +2,7 @@
 
 A variation on the enum theme for Python exceptions.
 
-# Defining Families
+### Defining Families
 
 Declare a family of Exception classes in one line:
 
@@ -44,7 +44,7 @@ except Error as e:
 
 _Notice the difference &mdash; Constants are classes with instances attached, whereas Errors are classes with subclasses attached._
 
-# Extending the Family
+### Extending the Family
 
 I assume `define_family` is enough for the vast majority of cases, but if for some reason you want to create a custom family tree of errors with three or more levels, you can call `define_children` on any class to create another level child error classes.
 
@@ -52,7 +52,7 @@ I assume `define_family` is enough for the vast majority of cases, but if for so
 APIError.VersionError.define_children( "VersionOmittedError", "VersionUnspportedError" )
 ```
 
-# Cheatsheet
+### Cheatsheet
 
 ```python
 cls.define_family( parent_name, *child_names )      # -> parent_class
@@ -62,5 +62,4 @@ cls.<child_name>    # -> child_class
 
 cls.name            # shortcut for cls.__name__
 cls.parent          # -> parent_class
-cls.children        # -> [ child_class1, ... ]
 ```

@@ -55,19 +55,39 @@ def test__instance_methods():
     assert Color.GREEN.ordinal        == 2
 
 
-def test__instance_exports():
+def test__exports():
     Color = Constant.define_set( "Color", "RED", "GREEN", "BLUE" )
-    Fruit = Constant.define_set( "Fruit", Apple=dict( price=1, qty=10 ) )
+    Fruit = Constant.define_set(
+        "Fruit",
+        Apple  = dict( price=1, qty=10 ),
+        Orange = dict( price=2, qty=20 ),
+    )
 
+    # as_cnames
+    assert Color.as_cnames()[ 0 ] == "RED"
+    assert Color.as_cnames( filter=lambda o: o != "RED" )[ 0 ] == "GREEN"
+
+    # pick
+    assert Fruit.pick( "qty" )[ 0 ] == 10
+    assert Fruit.pick( "qty", filter=lambda o: o.qty > 10 )[ 0 ] == 20
+
+    # as_dict / as_dicts
     assert Fruit.Apple.as_dict() == dict( cname="Apple", price=1, qty=10 )
     assert Fruit.Apple.as_dict(  "price", "qty" ) ==   dict( price=1, qty=10 )
-    assert Fruit.Apple.all_dict( "price", "qty" ) == [ dict( price=1, qty=10 ) ]
+    assert Fruit.as_dicts(
+        "price", "qty", filter=lambda o: o != "Orange"
+    ) == [ dict( price=1, qty=10 ) ]
 
+    # as_tuple / as_tuples
     assert Fruit.Apple.as_tuple() == ( "Apple", 1, 10 )
     assert Fruit.Apple.as_tuple(  "qty", "cname" ) ==   ( 10, "Apple" )
-    assert Fruit.Apple.all_tuple( "qty", "cname" ) == [ ( 10, "Apple" ) ]
+    assert Fruit.as_tuples(
+        "qty", "cname", filter=lambda o: o != "Orange"
+    ) == [ ( 10, "Apple" ) ]
+    assert Color.BLUE.as_tuple() == ( "BLUE", 3 )   # with ordinal value
 
-    assert Color.BLUE.as_tuple() == ( "BLUE", 3 )
+    # choices
+    assert Color.choices()[ 0 ] == ( "RED", "Red" )
 
 
 def test__class_methods():
@@ -100,10 +120,6 @@ def test__class_methods():
     # all
     assert Color.all[ 0 ] == Color.RED
     assert isinstance( Color.all[ 0 ], Color )
-
-    # all_cname
-    assert Color.all_cname[ 0 ] == Color.RED
-    assert isinstance( Color.all_cname[ 0 ], str )
 
     # filter
     assert len( Color.filter( lambda o: o.like  ) ) == 2
