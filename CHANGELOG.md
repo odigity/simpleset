@@ -13,10 +13,11 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 
 ## [Unreleased]
 
+-
 
 ## [0.4.0] - 2023-10-13
 
-- changed `all_cname` from classproperty to classmethod and add `filter`` keyword
+- changed `all_cname` from classproperty to classmethod and add `filter` keyword
 - added `filter` keyword to `all_dict` and `all_tuple`
 - renamed `all_cname` to `as_cnames`, `all_dict` to `as_dicts`, and `all_tuple` to `as_tuples`
 - added `pick` and `choices` class methods
@@ -40,7 +41,7 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 - wrote docs/index
 - wrote docs/customizing
 - defined docs nav order
-- replaced deepcopy strategy (for immutability) with `_attrdir`` dict + custom attribute access methods, which also facilitates attributes overriding existing properties and methods when collisions occur
+- replaced deepcopy strategy (for immutability) with `_attrdir` dict + custom attribute access methods, which also facilitates attributes overriding existing properties and methods when collisions occur
 - added `as_dict`, `all_dict`, `as_tuple`, and `all_tuple`
 
 ## [0.2.0] - 2023-10-09
