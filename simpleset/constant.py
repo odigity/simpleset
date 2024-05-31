@@ -133,6 +133,9 @@ class Constant( metaclass=ConstantType ):
     @classmethod
     def populate( cls, *args, **kwargs ):
 
+        if not hasattr( cls, "_objdir" ):
+            cls._objdir = {}
+
         # Form 1
         for cname in args:
             cname = str( cname )
