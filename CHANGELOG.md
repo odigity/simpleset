@@ -15,6 +15,10 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.1.0
 
 -
 
+## [0.4.1] - 2023-10-13
+
+- fix missing `_objdir` bug (when using populate() instead of define_set())
+
 ## [0.4.0] - 2023-10-13
 
 - changed `all_cname` from classproperty to classmethod and add `filter` keyword

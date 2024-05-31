@@ -1,7 +1,7 @@
 [ tool.poetry ]
 
 name            = "simpleset"
-version         = "0.4.0"
+version         = "0.4.1"
 description     = "Better Than Enums"
 authors         = [ "Ofer Nave <odigity@gmail.com>" ]
 readme          = "README.md"
